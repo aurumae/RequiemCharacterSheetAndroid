@@ -11,5 +11,4 @@ val attributes = listOf(
     Attribute(name = "Presence", rating = 4),
     Attribute(name = "Manipulation", rating = 2),
     Attribute(name = "Composurre", rating = 5)
-    // Add more attributes as needed
 )

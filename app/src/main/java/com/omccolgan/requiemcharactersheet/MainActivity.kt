@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
 
                         // Logo Image
                         Image(
-                            painter = painterResource(id = R.drawable.vtr_logo), // Replace with your logo image name
+                            painter = painterResource(id = R.drawable.vtr_logo),
                             contentDescription = null,
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -60,7 +60,6 @@ class MainActivity : ComponentActivity() {
                             Attribute(name = "Presence", rating = 3),
                             Attribute(name = "Manipulation", rating = 2),
                             Attribute(name = "Composure", rating = 4)
-                            // Add more attributes as needed
                         )
 
                         // Use weight to make the list fill the remaining space

@@ -1,1 +1,1 @@
-Android Character Sheet App for Vampire: the Requiem 2e
+Android character sheet app for Vampire: the Requiem 2e

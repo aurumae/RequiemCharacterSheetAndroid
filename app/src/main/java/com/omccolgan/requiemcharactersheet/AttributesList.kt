@@ -1,3 +1,4 @@
+// AttributesList.kt
 package com.omccolgan.requiemcharactersheet
 
 import androidx.compose.foundation.Canvas
@@ -20,21 +21,26 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-
-// AttributesList.kt
 @Composable
-fun AttributesList(attributes: List<Attribute>, modifier: Modifier = Modifier) {
+fun AttributesList(
+    attributes: List<Attribute>,
+    onAttributeChange: (String, Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
     LazyColumn(modifier = modifier) {
         items(attributes) { attribute ->
-            AttributeRow(attribute)
+            AttributeRow(attribute, onRatingChange = { newRating ->
+                onAttributeChange(attribute.name, newRating)
+            })
         }
     }
 }
 
-
+// AttributeRow.kt
 @Composable
-fun AttributeRow(attribute: Attribute) {
+fun AttributeRow(attribute: Attribute, onRatingChange: (Int) -> Unit) {
     var rating by remember { mutableStateOf(attribute.rating) }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -42,14 +48,14 @@ fun AttributeRow(attribute: Attribute) {
     ) {
         Text(
             text = attribute.name,
-            fontFamily = CaslonAntique, // Custom font we'll define later
+            fontFamily = CaslonAntique, // Custom font defined elsewhere
             fontSize = 22.sp,
-            color = VampireRed, // Custom color we'll define later
+            color = VampireRed,
             modifier = Modifier.weight(1f)
         )
-        //RatingDots(rating = attribute.rating)
         RatingDots(rating = rating, onRatingChange = { newRating ->
             rating = newRating
+            onRatingChange(newRating)
         })
     }
 }

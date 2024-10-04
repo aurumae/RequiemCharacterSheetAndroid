@@ -1,6 +1,6 @@
+// SampleData.kt
 package com.omccolgan.requiemcharactersheet
 
-// SampleData.kt
 val attributes = listOf(
     Attribute(name = "Intelligence", rating = 3),
     Attribute(name = "Wits", rating = 2),
@@ -10,5 +10,5 @@ val attributes = listOf(
     Attribute(name = "Stamina", rating = 2),
     Attribute(name = "Presence", rating = 4),
     Attribute(name = "Manipulation", rating = 2),
-    Attribute(name = "Composurre", rating = 5)
+    Attribute(name = "Composure", rating = 5)
 )

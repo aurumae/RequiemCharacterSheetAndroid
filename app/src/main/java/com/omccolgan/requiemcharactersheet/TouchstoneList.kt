@@ -15,7 +15,7 @@ fun TouchstoneList(touchstones: List<Touchstone>, onTextChange: (String, String)
             var textState by remember { mutableStateOf(touchstone.text) }
 
             TextField(
-                value = textState, // Changed ':' to '='
+                value = textState,
                 onValueChange = { newText: String ->
                     textState = newText
                     onTextChange(touchstone.id, newText)
@@ -26,25 +26,3 @@ fun TouchstoneList(touchstones: List<Touchstone>, onTextChange: (String, String)
         }
     }
 }
-
-/*
-package com.omccolgan.requiemcharactersheet
-
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
-
-@Composable
-fun TouchstoneList(touchstones: List<Touchstone>, onTextChange: (String, String) -> Unit) {
-    Column {
-        touchstones.forEach { touchstone ->
-            TextField(
-                value = touchstone.text,
-            onValueChange = { newText -> onTextChange(touchstone.id, newText) },
-            label = { Text("Touchstone Level ${touchstone.level}") }
-            )
-        }
-    }
-}
-*/

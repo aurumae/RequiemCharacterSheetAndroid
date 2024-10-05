@@ -92,7 +92,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// Move this function outside of MainActivity
+// Damage type logic
 fun getNextDamageType(current: HealthBoxFillType): HealthBoxFillType {
     return when (current) {
         HealthBoxFillType.NONE -> HealthBoxFillType.BASHING

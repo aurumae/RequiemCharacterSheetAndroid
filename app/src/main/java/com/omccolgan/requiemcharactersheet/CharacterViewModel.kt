@@ -25,14 +25,6 @@ class CharacterViewModel(private val context: Context) : ViewModel() {
         }
     }
 
-    /*
-    fun updateCharacter(newCharacter: Character) {
-        viewModelScope.launch {
-            context.characterDataStore.updateData { newCharacter }
-        }
-    }
-     */
-
     // Update functions
     fun updateAttribute(name: String, rating: Int) {
         viewModelScope.launch {
@@ -99,7 +91,5 @@ class CharacterViewModel(private val context: Context) : ViewModel() {
             context.characterDataStore.updateData { updatedCharacter }
         }
     }
-
-    // Other update functions...
 }
 

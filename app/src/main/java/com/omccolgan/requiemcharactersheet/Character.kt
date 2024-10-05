@@ -71,8 +71,8 @@ data class Character(
                 Attribute(name = "Composure", rating = 1)
             )
 
+            // Logging to ensure the attributes are getting initialized correctly
             Log.d("Character", "Default attributes initialized: ${attributes.map { it.name to it.rating }}")
-
 
             // Compute initial health
             val stamina = attributes.firstOrNull { it.name == "Stamina" }?.rating ?: 0
@@ -99,7 +99,7 @@ data class Character(
                 attributes = attributes,
                 healthBoxes = healthBoxes,
                 willpowerBoxes = willpowerBoxes,
-                skills = listOf(), // Initialize as needed
+                skills = listOf(), // Do this later
                 touchstones = touchstones,
                 disciplines = disciplines,
                 merits = merits,
@@ -107,6 +107,5 @@ data class Character(
                 banes = banes
             )
         }
-        // Other derived attributes...
     }
 }

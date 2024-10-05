@@ -36,6 +36,7 @@ fun AttributesList(
 
 
 // AttributeRow.kt
+// Should really pull this out into a separate file...
 @Composable
 fun AttributeRow(attribute: Attribute, onRatingChange: (Int) -> Unit) {
     Row(

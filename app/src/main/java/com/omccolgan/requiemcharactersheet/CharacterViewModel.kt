@@ -91,5 +91,12 @@ class CharacterViewModel(private val context: Context) : ViewModel() {
             context.characterDataStore.updateData { updatedCharacter }
         }
     }
+
+    fun updateHumanity(newHumanity: Int) {
+        viewModelScope.launch {
+            val updatedCharacter = _character.value.copy(humanity = newHumanity)
+            context.characterDataStore.updateData { updatedCharacter }
+        }
+    }
 }
 

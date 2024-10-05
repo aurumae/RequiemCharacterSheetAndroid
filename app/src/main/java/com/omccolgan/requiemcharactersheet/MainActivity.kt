@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.omccolgan.requiemcharactersheet.ui.theme.RequiemCharacterSheetTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,56 +38,77 @@ class MainActivity : ComponentActivity() {
                     )
 
                     // Content
-                    Column(
+                    LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(horizontal = 16.dp)
+                            .padding(bottom = 55.dp)
+                            .padding(top = 55.dp)
                     ) {
-                        Spacer(modifier = Modifier.height(50.dp))
+                        item {
+                            // Spacer(modifier = Modifier.height(50.dp))
 
-                        // Logo Image
-                        Image(
-                            painter = painterResource(id = R.drawable.vtr_logo),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(100.dp)
-                                .align(Alignment.CenterHorizontally),
-                            contentScale = ContentScale.Fit
-                        )
+                            // Logo Image
+                            Image(
+                                painter = painterResource(id = R.drawable.vtr_logo),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(100.dp),
+                                contentScale = ContentScale.Fit,
+                                alignment = Alignment.Center
+                            )
 
-                        Spacer(modifier = Modifier.height(20.dp))
+                            Spacer(modifier = Modifier.height(20.dp))
+                        }
 
-                        // Attributes List
-                        AttributesList(
-                            attributes = character.attributes,
-                            onAttributeChange = { name, rating ->
-                                viewModel.updateAttribute(name, rating)
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 60.dp)
-                        )
+                        item {
+                            // Attributes List
+                            AttributesList(
+                                attributes = character.attributes,
+                                onAttributeChange = { name, rating ->
+                                    viewModel.updateAttribute(name, rating)
+                                },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = 60.dp)
+                            )
+                        }
 
+                        item {
+                            // Health Boxes
+                            HealthBoxRow(
+                                healthBoxes = character.healthBoxes,
+                                onHealthBoxClick = { healthBoxId ->
+                                    val currentDamageType = character.healthBoxes.find { it.id == healthBoxId }?.damageType ?: HealthBoxFillType.NONE
+                                    val newDamageType = getNextDamageType(currentDamageType)
+                                    viewModel.updateHealthBoxDamageType(healthBoxId, newDamageType)
+                                }
+                            )
+                        }
 
-                        // Health Boxes
-                        HealthBoxRow(
-                            healthBoxes = character.healthBoxes,
-                            onHealthBoxClick = { healthBoxId ->
-                                val currentDamageType = character.healthBoxes.find { it.id == healthBoxId }?.damageType ?: HealthBoxFillType.NONE
-                                val newDamageType = getNextDamageType(currentDamageType)
-                                viewModel.updateHealthBoxDamageType(healthBoxId, newDamageType)
-                            }
-                        )
+                        item {
+                            // Touchstones
+                            val humanity = character.humanity
 
-                        // Touchstones
-                        TouchstoneList(
-                            touchstones = character.touchstones,
-                            onTextChange = { touchstoneId, newText ->
-                                viewModel.updateTouchstoneText(touchstoneId, newText)
-                            }
-                        )
+                            TouchstoneList(
+                                touchstones = character.touchstones,
+                                humanity = humanity,
+                                onHumanityChange = { newHumanity ->
+                                    viewModel.updateHumanity(newHumanity)
+                                },
+                                onTextChange = { touchstoneId, newText ->
+                                    viewModel.updateTouchstoneText(touchstoneId, newText)
+                                }
+                            )
+
+                        }
+
+                        item {
+                            Spacer(modifier = Modifier.height(50.dp)) // Bottom padding
+                        }
                     }
+
                 }
             }
         }

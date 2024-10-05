@@ -9,7 +9,6 @@ import androidx.datastore.dataStore
 import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
-import android.util.Log
 
 // Define the serializer
 object CharacterSerializer : Serializer<Character> {

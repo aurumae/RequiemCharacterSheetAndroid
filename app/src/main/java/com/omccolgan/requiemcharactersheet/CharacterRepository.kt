@@ -3,26 +3,27 @@ package com.omccolgan.requiemcharactersheet
 
 import android.content.Context
 import androidx.datastore.core.DataStore
+import androidx.datastore.core.Serializer
 import androidx.datastore.dataStore
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import java.io.InputStream
 import java.io.OutputStream
+import android.util.Log
 
 // Define the serializer
-object CharacterSerializer : androidx.datastore.core.Serializer<Character> {
+object CharacterSerializer : Serializer<Character> {
     override val defaultValue: Character = Character.defaultCharacter()
 
     override suspend fun readFrom(input: InputStream): Character {
         return try {
+            val jsonString = input.readBytes().decodeToString()
+            Log.d("CharacterSerializer", "Deserializing: $jsonString")
             Json.decodeFromString(
                 Character.serializer(),
-                input.readBytes().decodeToString()
+                jsonString
             )
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.e("CharacterSerializer", "Error deserializing character", e)
             defaultValue
         }
     }
@@ -33,6 +34,7 @@ object CharacterSerializer : androidx.datastore.core.Serializer<Character> {
         )
     }
 }
+
 
 // Extension to create the DataStore
 val Context.characterDataStore: DataStore<Character> by dataStore(

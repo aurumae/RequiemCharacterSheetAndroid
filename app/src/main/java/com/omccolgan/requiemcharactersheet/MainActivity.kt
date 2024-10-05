@@ -63,9 +63,10 @@ class MainActivity : ComponentActivity() {
                                 viewModel.updateAttribute(name, rating)
                             },
                             modifier = Modifier
-                                .weight(1f)
+                                .fillMaxWidth()
                                 .padding(bottom = 60.dp)
                         )
+
 
                         // Health Boxes
                         HealthBoxRow(

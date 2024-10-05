@@ -1,6 +1,7 @@
 // Character.kt
 package com.omccolgan.requiemcharactersheet
 
+import android.util.Log
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -69,6 +70,9 @@ data class Character(
                 Attribute(name = "Manipulation", rating = 1),
                 Attribute(name = "Composure", rating = 1)
             )
+
+            Log.d("Character", "Default attributes initialized: ${attributes.map { it.name to it.rating }}")
+
 
             // Compute initial health
             val stamina = attributes.firstOrNull { it.name == "Stamina" }?.rating ?: 0

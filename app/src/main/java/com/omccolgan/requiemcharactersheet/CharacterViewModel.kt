@@ -2,6 +2,7 @@
 package com.omccolgan.requiemcharactersheet
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.SharingStarted
@@ -9,11 +10,28 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+
 class CharacterViewModel(private val context: Context) : ViewModel() {
     private val _character = context.characterDataStore.data
         .stateIn(viewModelScope, SharingStarted.Eagerly, Character.defaultCharacter())
 
     val character: StateFlow<Character> = _character
+
+    init {
+        viewModelScope.launch {
+            character.collect { character ->
+                Log.d("CharacterViewModel", "Loaded character with attributes: ${character.attributes.map { it.name to it.rating }}")
+            }
+        }
+    }
+
+    /*
+    fun updateCharacter(newCharacter: Character) {
+        viewModelScope.launch {
+            context.characterDataStore.updateData { newCharacter }
+        }
+    }
+     */
 
     // Update functions
     fun updateAttribute(name: String, rating: Int) {
